@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <style>
+      body { text-align: center; padding: 150px; }
+      h1 { font-size: 50px; }
+      body { font: 20px Helvetica, sans-serif; color: #333; }
+      article { display: block; text-align: left; width: 650px; margin: 0 auto; }
+      a { color: #dc8100; text-decoration: none; }
+      a:hover { color: #333; text-decoration: none; }
+      div.image { content:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQMaW5wjq2FpQDeSPP6M2p0x2kxDXvgucNtkGTiZc3WJVgTcn8); display: block; margin-left: auto; margin-right: auto }
+    </style>
+    <head>
+        <title>Nearby tweets</title>
+    </head>
+    <body>
+        <a href="/map"><div class="image"></div></a>
+        <article>
+            <script>
+              var query_params = window.location.search.slice(1);
+              var ws = new WebSocket('ws://' + document.domain + ':' + location.port + '/feed?' + query_params),
+              messages = document.createElement('div');
+              ws.onmessage = function (event) {
+                  var messages = document.getElementsByTagName('div')[1],
+                      message = document.createElement('p'),
+                      content = document.createTextNode(event.data);
+                  message.appendChild(content);
+                  messages.appendChild(message);
+                  if ((document.getElementsByTagName('p').length % 15) == 0) {
+                     message.scrollIntoView();
+                  }
+              };
+              document.body.appendChild(messages);
+
+            </script>
+        </article>
+    </body>
+</html>
