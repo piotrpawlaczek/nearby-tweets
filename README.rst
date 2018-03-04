@@ -11,7 +11,7 @@ Utilizes some cool python 3.6+ features:
 - websockets & push notifications
 
 No twitter API auth or configuration required.
-
+Fast and async web server.
 
 Installation
 ============
@@ -41,6 +41,6 @@ Run unittests:
 
 .. code-block:: shell
 
-    $ pyest 
+    $ pytest 
 
 
