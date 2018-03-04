@@ -5,15 +5,20 @@
       h1 { font-size: 50px; }
       body { font: 20px Helvetica, sans-serif; color: #333; }
       article { display: block; text-align: left; width: 650px; margin: 0 auto; }
-      a { color: #dc8100; text-decoration: none; }
+      a { color: #1da1f2; text-decoration: none; }
       a:hover { color: #333; text-decoration: none; }
-      div.image { content:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQMaW5wjq2FpQDeSPP6M2p0x2kxDXvgucNtkGTiZc3WJVgTcn8); display: block; margin-left: auto; margin-right: auto }
+      div.image { display: block; margin-left: auto; margin-right: auto }
     </style>
     <head>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
         <title>Nearby tweets</title>
     </head>
     <body>
-        <a href="/map"><div class="image"></div></a>
+        <a href="/map">
+          <div class="image">
+            <i class="fab fa-twitter fa-9x" title="Go to map"></i>
+          </div>
+        </a>
         <article>
             <script>
               var query_params = window.location.search.slice(1);
@@ -30,7 +35,6 @@
                   }
               };
               document.body.appendChild(messages);
-
             </script>
         </article>
     </body>
