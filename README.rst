@@ -5,10 +5,10 @@ Following and visualizing nearby tweets.
 
 Utilizes some cool python 3.6+ features:
 
-*) typing
-*) asyncio
-*) f'strings
-*) websockets & push notifications
+- typing
+- asyncio
+- f'strings
+- websockets & push notifications
 
 No twitter API auth or configuration required.
 
@@ -16,7 +16,7 @@ No twitter API auth or configuration required.
 Installation
 ============
 
-Python 3.6+ only
+Python 3.6+ is supported only.
 
 .. code-block:: shell
 
@@ -37,6 +37,7 @@ Usage
 
 Test
 ====
+Run unittests:
 
 .. code-block:: shell
 
