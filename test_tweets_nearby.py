@@ -52,4 +52,3 @@ def test_get_tweets_map_official():
         assert isinstance(tweet, dict)  # check if tweets are readable
         assert 'tweet' in tweet
         assert 'coordinates' in tweet['geometry']
-

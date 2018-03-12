@@ -2,6 +2,7 @@
 Class pattern for configuration
 """
 
+
 class Config(object):
     DEBUG = False
     TESTING = False

@@ -25,13 +25,13 @@ from config import Config
 from typing import Dict, Iterable, Iterator, Any, List, Union
 
 
-MAP_RESPONSE = { 
-    "geometry": {"type": "Point", "coordinates": []}, 
+MAP_RESPONSE = {
+    "geometry": {"type": "Point", "coordinates": []},
     "type": "Feature", "properties": {}, "tweet": ""
 }
 
 
-class Api(object):  
+class Api(object):
     """Nearby api api(s)"""
     OFFICIAL = 'official'
     REVERSE_ENGINEERED = 'reverse-engineered'
@@ -43,7 +43,7 @@ class Api(object):
             consumer_secret=Config.CONSUMER_SECRET,
             access_token_key=Config.ACCESS_TOKEN,
             access_token_secret=Config.ACCESS_TOKEN_SECRET
-        )    
+        )
         api.VerifyCredentials()
         return _ApiOfficial(api)
 
@@ -53,9 +53,9 @@ class Api(object):
 
     @classmethod
     def get_default(cls) -> Union['_ApiOfficial', '_ApiReversedEngineered']:
-        if all([Config.CONSUMER_KEY, 
-                Config.CONSUMER_SECRET, 
-                Config.ACCESS_TOKEN, 
+        if all([Config.CONSUMER_KEY,
+                Config.CONSUMER_SECRET,
+                Config.ACCESS_TOKEN,
                 Config.ACCESS_TOKEN_SECRET]):
             return cls.get_official()
         return cls.get_reversed()
@@ -149,7 +149,6 @@ class _ApiReverseEngineered(ApiBase):
                     pages += -1
 
         yield from gen_tweets(pages)
-
 
     def get_tweets_map(self, where: List=['me'], lang: List=['en'], pages: int=25) -> Iterator[dict]:
         """As twitter internal API does not provide tweet coordinates we will only shake the original ones."""

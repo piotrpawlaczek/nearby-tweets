@@ -53,7 +53,7 @@ async def feed(request, ws):
         params = dict(where=[where], lang=[lang])
 
         tweet_gen = api.get_tweets(**params) if basic_ui else api.get_tweets_map(**params)
-        
+
         for tweet in tweet_gen:
             if not basic_ui:
                 await ws.send(json.dumps(tweet))
