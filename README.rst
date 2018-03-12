@@ -35,8 +35,8 @@ Usage
     $ python run.py
     $ open http://localhost:8000/  # basic ui
     $ open http://localhost:8000/?w=Londodn  # get tweets from London location
-    $ open http://localhost:8000/?w=geocode:52.2,21.0&l=en  # provide coordinates and specify language
-    $ open http://localhost:8000/map/?w=53.3498050,-6.2603100  # live tracking on map
+    $ open http://localhost:8000/?w=-122.75,36.8,-121.75,37.8
+    $ open http://localhost:8000/map/?w=-122.75,36.8,-121.75,37.8  # live tracking on map
 
 
 Test
