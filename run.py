@@ -4,15 +4,10 @@ Async and speedy web server that runs tweets nearby.
 import json
 import asyncio
 
-from urllib.parse import quote_plus
-
 from sanic import Sanic
-from sanic.config import Config
 from sanic.response import file
 
-from tweets_nearby import get_tweets
-from tweets_nearby import get_tweets_map
-
+from tweets_nearby import Api
 
 app = Sanic(__name__)
 
@@ -38,21 +33,27 @@ async def static(request, name):
 @app.websocket('/feed')
 async def feed(request, ws):
     """Stream tweets via websockets to feed channel."""
-    def parse_nearby(q_param):
+    def parse_nearby(q_param, api):
         if 'geocode' not in q_param:
             where = q_param
         else:  # parse coordinates
-            ge1, ge2 = tuple(map(float, q_param.lstrip('geocode:').split(',')))
-            where = f'geocode:{ge1}, {ge2}'
-        return quote_plus(where)
+            if api.is_official:
+                where = q_param.lstrip('geocode:')
+            else:
+                ge1, ge2, ge3, ge4 = tuple(map(float, q_param.lstrip('geocode:').split(',')))
+                where = f'geocode:{ge1}, {ge2}, {ge3}, {ge4}'
+        return where
 
     while True:
+        api = Api.get_default() if 'geocode' in request.args.get('w') else Api.get_reversed()
         nearby = request.args.get('w') or 'me'
         lang = request.args.get('l') or 'en'
         basic_ui = not (request.args.get('on_map', 'false').lower() == 'true')
-        where = parse_nearby(nearby)
+        where = parse_nearby(nearby, api)
+        params = dict(where=[where], lang=[lang])
 
-        tweet_gen = get_tweets(where=where, lang=lang) if basic_ui else get_tweets_map(where=where, lang=lang)
+        tweet_gen = api.get_tweets(**params) if basic_ui else api.get_tweets_map(**params)
+        
         for tweet in tweet_gen:
             if not basic_ui:
                 await ws.send(json.dumps(tweet))

@@ -6,6 +6,7 @@ name = "pypi"
 
 
 [dev-packages]
+
 pytest = "*"
 
 
@@ -15,3 +16,5 @@ sanic = "*"
 fake-useragent = "*"
 pyquery = "*"
 requests = "*"
+python-twitter = "*"
+shapely = "*"
